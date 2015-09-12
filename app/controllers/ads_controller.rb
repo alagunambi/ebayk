@@ -11,6 +11,18 @@ class AdsController < ApplicationController
     end
   end
 
+  def today_csv
+     @ads = Ad.where("created_at >= ?", Time.zone.now.beginning_of_day) 
+     respond_to do |format|
+      format.html
+      format.csv { render text: @ads.as_csv }
+    end
+  end
+
+  def export_with_date
+
+  end
+
   # GET /ads/1
   # GET /ads/1.json
   def show
