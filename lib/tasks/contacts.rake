@@ -22,35 +22,47 @@ namespace :contacts do
 		  newpage = a.get('http://www.ebay-kleinanzeigen.de/s-dienstleistungen/seite:2/c297')
 		  noko = newpage.search('body')
 
-		  noko.css('.ad-title').each do |x|
-		  	url = "http://www.ebay-kleinanzeigen.de/#{x['href']}"
-		  	new_page = a.get(url)
-			  noko2 = new_page.search('body')
-			  number = noko2.css('#viewad-contact-phone').text.squish.delete("^0-9")
+      get_ads(noko, a)
 
-			  if ["015", "016 ", "017"].include?(number[0..2])
-          if number.length == 11 || number.length == 12
-  			    p number.to_s + " - interesting - " + url.to_s
-            begin
-              Ad.create!(:contact => number, :link => url, :ad_id => url.squish.delete("^0-9"))
-            rescue => e
-              puts "SSSSSTTTTTTTAAAAAAAAARRRRRRRRRRRTTTTTTTTTTTTTTTTTTTTTTTTT"
-              puts e
-              puts e.backtrace
-              puts "EEEEEEEEEEEEEEEENNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDDDDDDDDDDD"
-            end
-          else
-            p number.length
-            p "Discarding for non-interesting length"
-          end
-			  else
-			  	p number.to_s + " - Not interesting"
-			  end
-		  end
+      newpage.search("div.pagination").search("a.pagination-link").each_with_index do |p, i|
+        link = p.attr("href")
+        page = a.get(link)
+        noko = page.search('body')
+
+        get_ads(noko, a)
+      end
 		end
 	end
 
   task :clean => :environment do
     Ad.destroy_all
+  end
+end
+
+def get_ads(noko, agent)
+  noko.css('.ad-title').each do |x|
+    url = "http://www.ebay-kleinanzeigen.de/#{x['href']}"
+    new_page = agent.get(url)
+    noko2 = new_page.search('body')
+    number = noko2.css('#viewad-contact-phone').text.squish.delete("^0-9")
+
+    if ["015", "016 ", "017"].include?(number[0..2])
+      if number.length == 11 || number.length == 12
+        p number.to_s + " - interesting - " + url.to_s
+        begin
+          Ad.create!(:contact => number, :link => url, :ad_id => url.squish.delete("^0-9"))
+        rescue => e
+          puts "SSSSSTTTTTTTAAAAAAAAARRRRRRRRRRRTTTTTTTTTTTTTTTTTTTTTTTTT"
+          puts e
+          puts e.backtrace
+          puts "EEEEEEEEEEEEEEEENNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDDDDDDDDDDD"
+        end
+      else
+        p number.length
+        p "Discarding for non-interesting length"
+      end
+    else
+      p number.to_s + " - Not interesting"
+    end
   end
 end

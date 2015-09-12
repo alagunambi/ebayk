@@ -36,7 +36,7 @@ div.col-md-6
           = f.submit "Export", :class => "btn btn-default"
       hr
       = button_to "Export Today's Results", "", :class => "btn btn-info pull-left", :id => "export-today-button", :data => { :loading_text => "Scrapping..." }
-      = button_to "Export All", "", :class => "btn btn-info pull-left", :id => "export-all-button", :data => { :loading_text => "Scrapping..." }
+      = button_to "Export All", {:controller => "ads", :action => "index", :format => :csv, :ad => {} }, :class => "btn btn-info pull-left", :id => "export-all-button", :data => { :loading_text => "Scrapping...", disable_with: 'loading...'  }, :method => :get
       br
       br
       hr
