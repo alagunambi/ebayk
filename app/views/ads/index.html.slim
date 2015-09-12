@@ -1,0 +1,17 @@
+h1
+  Contacts Gathered
+  = link_to "Download as CSV", "/ads.csv", :class => "pull-right btn btn-success white", :id => "download-button"
+
+table.table.table-bordered
+  thead
+    tr
+      th Ad ID
+      th Contact
+      th Link
+
+  tbody
+    - @ads.each do |ad|
+      tr
+        td = ad.ad_id
+        td = ad.contact
+        td = ad.link

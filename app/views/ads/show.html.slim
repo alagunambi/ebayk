@@ -1,0 +1,15 @@
+p#notice = notice
+
+p
+  strong Contact:
+  = @ad.contact
+p
+  strong Ad:
+  = @ad.ad_id
+p
+  strong Link:
+  = @ad.link
+
+= link_to 'Edit', edit_ad_path(@ad)
+'|
+= link_to 'Back', ads_path

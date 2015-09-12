@@ -1,0 +1,45 @@
+center
+  h2 Initiate Scrapper
+  = button_to "Start", "", :class => "btn btn-success btn-lg", :id => "start-button", :data => { :loading_text => "Scrapping..." }
+  / button_to "Stop", "", :class => "btn btn-success disabled", :id => "start-button", :data => { :loading_text => "Scrapping..." }
+
+
+hr
+br
+br
+
+h3
+  span.glyphicon.glyphicon-cog aria-hidden="true"
+  |  Configurations
+hr
+br
+div.col-md-6
+  div.panel.panel-default
+    div.panel-heading
+      h4 kleinanzeigen.ebay.de Login
+    div.panel-body
+      = simple_form_for("account-details", :class => "form-horizontal") do |f|
+        div.form-group
+          = f.input :username
+        div.form-group
+          = f.input :password
+          = f.submit "Save", :class => "btn btn-default"
+
+div.col-md-6
+  div.panel.panel-default
+    div.panel-heading
+      h4 Export Details
+    div.panel-body
+      = simple_form_for("export-details", :html => { :class => "form-inline" }) do |f|
+          = f.input :from_date, :placeholder => "From Date", :label => false
+          = f.input :to_date, :placeholder => "To Date", :label => false
+          = f.submit "Export", :class => "btn btn-default"
+      hr
+      = button_to "Export Today's Results", "", :class => "btn btn-info pull-left", :id => "export-today-button", :data => { :loading_text => "Scrapping..." }
+      = button_to "Export All", "", :class => "btn btn-info pull-left", :id => "export-all-button", :data => { :loading_text => "Scrapping..." }
+      br
+      br
+      hr
+      h3
+        = button_to "Destroy Everything", "", :class => "btn btn-danger pull-right", :id => "destroy-button", :data => { :loading_text => "Scrapping..." }
+        | Clear everything scrapped so far.
