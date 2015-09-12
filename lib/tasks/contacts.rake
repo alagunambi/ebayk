@@ -25,6 +25,7 @@ namespace :contacts do
       get_ads(noko, a)
 
       newpage.search("div.pagination").search("a.pagination-link").each_with_index do |p, i|
+        puts i.to_s + i.to_s + i.to_s + i.to_s + i.to_s + i.to_s + i.to_s + i.to_s + i.to_s
         link = p.attr("href")
         page = a.get(link)
         noko = page.search('body')
