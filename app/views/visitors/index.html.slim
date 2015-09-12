@@ -28,12 +28,12 @@ div.col-md-6
     div.panel-heading
       h4 Export Details
     div.panel-body
-      = simple_form_for("export-details", :html => { :class => "form-inline" }) do |f|
-          = f.input :from_date, :placeholder => "From Date", :label => false
-          = f.input :to_date, :placeholder => "To Date", :label => false
+      = simple_form_for("export-details", :url => "/export_with_date",:html => { :class => "form-inline" }) do |f|
+          = f.input :from_date, :placeholder => "From Date",:class => 'datepicker', :label => false
+          = f.input :to_date, :placeholder => "To Date", :class => 'datepicker', :label => false
           = f.submit "Export", :class => "btn btn-default"
       hr
-      = button_to "Export Today's Results", "", :class => "btn btn-info pull-left", :id => "export-today-button", :data => { :loading_text => "Scrapping..." }
+      = button_to "Export Today's Results", {:controller => "ads", :action => "today_csv", :format => :csv, :ad => {} }, :class => "btn btn-info pull-left", :id => "export-today-button", :data => { :loading_text => "Scrapping..." }
       = button_to "Export All", {:controller => "ads", :action => "index", :format => :csv, :ad => {} }, :class => "btn btn-info pull-left", :id => "export-all-button", :data => { :loading_text => "Scrapping...", disable_with: 'loading...'  }, :method => :get
       br
       br
