@@ -1,7 +1,30 @@
 center
-  h2 Initiate Scrapper
-  = button_to "Start", { :controller => "visitors", :action => "scrapping", :status => 1 }, :class => "btn btn-success btn-lg", :id => "start-button", :data => { :disable_with => "Scrapping...", :remote => true, :method => :post }
-  / button_to "Stop", { :controller => "visitors", :action => "scrapping", :status => 2, :pid => @pid }, :class => "btn btn-success disabled", :id => "start-button", :data => { :loading_text => "Scrapping..." }
+  h2 Ebay Kleinanzeigen Scrapper
+  hr
+  div.row
+    div.col-md-6
+      div.panel.panel-default
+        div.panel-heading
+          | Account in use
+        div.panel-body
+          div.input-group.input-group-sm.col-md-6
+            span.input-group-addon
+              | Username
+            input.form-control disabled=true value=Account.last.username.to_s
+
+          div.input-group.input-group-sm.col-md-6
+            span.input-group-addon
+              | Password
+            input.form-control disabled=true value=Account.last.password.to_s.gsub(/([^@])[^@]/, '\1@')
+    div.col-md-6
+      div.panel.panel-primary
+        div.panel-heading
+          | Initiate Scrapping
+        div.panel-body
+          - if params[:pid]
+            = button_to "Stop #{params[:pid]}", { :controller => "visitors", :action => "scrapping", :status => 2, :pid => params[:pid] }, :class => "btn btn-warning btn-lg", :id => "start-button", :data => { :confirm => "If the process #{params[:pid]} still running, do you still want to stop it?", :disable_with => "Stopping.." }
+          - else
+            = button_to "Start", { :controller => "visitors", :action => "scrapping", :status => 1 }, :class => "btn btn-success btn-lg", :id => "start-button", :data => { :disable_with => "Starting..", :remote => true, :method => :post }
 
 
 hr

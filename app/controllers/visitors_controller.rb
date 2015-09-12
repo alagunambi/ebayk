@@ -7,17 +7,19 @@ class VisitorsController < ApplicationController
       end
       logger.info @pid
       @status = @pid
+      message = "started"
     else
       logger.info "inside 2"
       if params[:pid]
         logger.info "inside pi"
-        @status = Process.kill "TERM", pid
+        @status = Process.kill "TERM", params[:pid].to_i
         logger.info @status
+        message = "stopped"
       end
     end
     respond_to do |format|
       if @status
-        format.html { redirect_to :back, notice: 'Scrapping started now and running in background.' }
+        format.html { redirect_to root_path(:pid => @pid), notice: "Scrapping #{message} now." }
       else
         format.html { redirect_to :back, notice: 'Failed to scrap, please try again.' }
       end

@@ -15,35 +15,43 @@ namespace :contacts do
 			my_page = signin.form_with(:id => 'login-form') do |form|
 				email_field = form.field_with(name: "loginMail")
 				password_field = form.field_with(name: "password")
-        
+
         account = Account.last
 				email_field.value = account.username.to_s
 				password_field.value = account.password.to_s
 		  end.submit
 
-		  newpage = a.get('http://www.ebay-kleinanzeigen.de/s-dienstleistungen/seite:2/c297')
-		  noko = newpage.search('body')
+      #		  newpage = a.get('http://www.ebay-kleinanzeigen.de/s-dienstleistungen/seite:2/c297')
+      category_links = [
+        "http://www.ebay-kleinanzeigen.de/s-dienstleistungen/seite:1/c297",
+        "http://www.ebay-kleinanzeigen.de/s-auto-rad-boot/seite:1/c210",
+        "http://www.ebay-kleinanzeigen.de/s-autoteile-reifen/seite:1/c223",
+        "http://www.ebay-kleinanzeigen.de/s-motorraeder-roller/seite:1/c305",
+        "http://www.ebay-kleinanzeigen.de/s-familie-kind-baby/seite:1/c17"
+      ]
 
-      get_ads(noko, a)
+      category_links.each do |link|
 
-      loop do
-        begin
-          link = newpage.search("div.pagination").search("a.pagination-link").attr("href")
-          page = a.get(link)
-          noko = page.search('body')
+        sleep(7.minutes)
 
-          get_ads(noko, a)
-        rescue => e
-          puts e
-          break
+  		  newpage = a.get(link)
+
+  		  noko = newpage.search('body')
+
+        get_ads(noko, a)
+
+        loop do
+          begin
+            link = newpage.search("div.pagination").search("a.pagination-link").attr("href")
+            page = a.get(link)
+            noko = page.search('body')
+
+            get_ads(noko, a)
+          rescue => e
+            puts e
+            break
+          end
         end
-      end
-
-
-      newpage.search("div.pagination").search("a.pagination-link").each_with_index do |p, i|
-        puts i.to_s + i.to_s + i.to_s + i.to_s + i.to_s + i.to_s + i.to_s + i.to_s + i.to_s
-        link = p.attr("href")
-
       end
 		end
 	end
@@ -68,7 +76,7 @@ def get_ads(noko, agent)
         rescue => e
           puts "SSSSSTTTTTTTAAAAAAAAARRRRRRRRRRRTTTTTTTTTTTTTTTTTTTTTTTTT"
           puts e
-          puts e.backtrace
+          #puts e.backtrace
           puts "EEEEEEEEEEEEEEEENNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDDDDDDDDDDD"
         end
       else
