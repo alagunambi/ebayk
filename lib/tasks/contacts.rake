@@ -15,7 +15,7 @@ namespace :contacts do
 			my_page = signin.form_with(:id => 'login-form') do |form|
 				email_field = form.field_with(name: "loginMail")
 				password_field = form.field_with(name: "password")
-        
+
         account = Account.last
 				email_field.value = account.username.to_s
 				password_field.value = account.password.to_s
@@ -68,7 +68,7 @@ def get_ads(noko, agent)
         rescue => e
           puts "SSSSSTTTTTTTAAAAAAAAARRRRRRRRRRRTTTTTTTTTTTTTTTTTTTTTTTTT"
           puts e
-          puts e.backtrace
+          #puts e.backtrace
           puts "EEEEEEEEEEEEEEEENNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDDDDDDDDDDD"
         end
       else
