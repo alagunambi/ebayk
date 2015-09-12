@@ -15,8 +15,10 @@ namespace :contacts do
 			my_page = signin.form_with(:id => 'login-form') do |form|
 				email_field = form.field_with(name: "loginMail")
 				password_field = form.field_with(name: "password")
-				email_field.value = "beharsllamniku@hotmail.de"
-				password_field.value = "beharr"
+        
+        account = Account.last
+				email_field.value = account.username.to_s
+				password_field.value = account.password.to_s
 		  end.submit
 
 		  newpage = a.get('http://www.ebay-kleinanzeigen.de/s-dienstleistungen/seite:2/c297')
@@ -24,13 +26,24 @@ namespace :contacts do
 
       get_ads(noko, a)
 
+      loop do
+        begin
+          link = newpage.search("div.pagination").search("a.pagination-link").attr("href")
+          page = a.get(link)
+          noko = page.search('body')
+
+          get_ads(noko, a)
+        rescue => e
+          puts e
+          break
+        end
+      end
+
+
       newpage.search("div.pagination").search("a.pagination-link").each_with_index do |p, i|
         puts i.to_s + i.to_s + i.to_s + i.to_s + i.to_s + i.to_s + i.to_s + i.to_s + i.to_s
         link = p.attr("href")
-        page = a.get(link)
-        noko = page.search('body')
 
-        get_ads(noko, a)
       end
 		end
 	end

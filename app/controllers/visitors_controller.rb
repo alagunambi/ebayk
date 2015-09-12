@@ -17,7 +17,7 @@ class VisitorsController < ApplicationController
     end
     respond_to do |format|
       if @status
-        format.html { redirect_to :back, notice: 'Scheduled Ads gathering started now.' }
+        format.html { redirect_to :back, notice: 'Scrapping started now and running in background.' }
       else
         format.html { redirect_to :back, notice: 'Failed to scrap, please try again.' }
       end

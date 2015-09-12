@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :accounts
   resources :ads
   match "/scrapping" => "visitors#scrapping", via: [ :post, :get ]
   match "/destroy_all" => "visitors#destroy_all", via: [ :post, :get ]

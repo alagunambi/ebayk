@@ -1,6 +1,6 @@
 center
   h2 Initiate Scrapper
-  = button_to "Start", { :controller => "visitors", :action => "scrapping", :status => 1 }, :class => "btn btn-success btn-lg", :id => "start-button", :data => { :loading_text => "Scrapping...", :remote => true, :method => :post }
+  = button_to "Start", { :controller => "visitors", :action => "scrapping", :status => 1 }, :class => "btn btn-success btn-lg", :id => "start-button", :data => { :disable_with => "Scrapping...", :remote => true, :method => :post }
   / button_to "Stop", { :controller => "visitors", :action => "scrapping", :status => 2, :pid => @pid }, :class => "btn btn-success disabled", :id => "start-button", :data => { :loading_text => "Scrapping..." }
 
 
@@ -18,11 +18,9 @@ div.col-md-6
     div.panel-heading
       h4 kleinanzeigen.ebay.de Login
     div.panel-body
-      = simple_form_for("account-details", :class => "form-horizontal") do |f|
-        div.form-group
-          = f.input :username
-        div.form-group
-          = f.input :password
+      = simple_form_for("account", :url => "/accounts") do |f|
+          = f.input :username, :required => true
+          = f.input :password, :required => true
           = f.submit "Save", :class => "btn btn-default"
 
 div.col-md-6
