@@ -30,9 +30,11 @@ namespace :contacts do
         "http://www.ebay-kleinanzeigen.de/s-familie-kind-baby/seite:1/c17"
       ]
 
-      category_links.each do |link|
+      category_links.each_with_index do |link, i|
 
-        sleep(7.minutes)
+        if i > 0
+          sleep(7.minutes)
+        end
 
   		  newpage = a.get(link)
 
