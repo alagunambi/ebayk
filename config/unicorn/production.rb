@@ -1,4 +1,4 @@
-root = "/home/deployer/apps/ebay/current"
+root = "/home/root/apps/ebay/current"
 working_directory root
 
 pid "#{root}/tmp/pids/unicorn.pid"

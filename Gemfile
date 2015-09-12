@@ -9,6 +9,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'unicorn'
 gem 'jbuilder', '~> 2.0'
+gem 'pg'
 group :development, :test do
   gem 'byebug'
 end
@@ -35,7 +36,6 @@ group :development do
   gem 'rails_layout'
 end
 group :production do
-  gem 'pg'
 end
 
 gem 'mechanize'
