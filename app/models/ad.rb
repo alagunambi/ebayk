@@ -1,4 +1,5 @@
 class Ad < ActiveRecord::Base
+  validates :contact, uniqueness: true
 
   def self.as_csv
     col_names = 'contact'

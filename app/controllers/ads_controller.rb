@@ -5,6 +5,10 @@ class AdsController < ApplicationController
   # GET /ads.json
   def index
     @ads = Ad.all
+    respond_to do |format|
+      format.html
+      format.csv { render text: @ads.as_csv }
+    end
   end
 
   # GET /ads/1
