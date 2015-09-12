@@ -7,6 +7,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 gem 'jquery-rails'
 gem 'turbolinks'
+gem 'unicorn'
 gem 'jbuilder', '~> 2.0'
 group :development, :test do
   gem 'byebug'
@@ -23,17 +24,18 @@ gem 'therubyracer', :platform=>:ruby
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller', :platforms=>[:mri_20]
-  gem 'capistrano', '~> 3.0.1'
+  gem 'capistrano'
   gem 'capistrano-bundler'
-  gem 'capistrano-rails', '~> 1.1.0'
+  gem 'capistrano-rails', '~> 1.1.3'
   gem 'capistrano-rails-console'
-  gem 'capistrano-rvm', '~> 0.1.1'
+  gem 'capistrano-rbenv'
+  gem 'capistrano3-unicorn'
   gem 'hub', :require=>nil
   gem 'quiet_assets'
   gem 'rails_layout'
 end
 group :production do
-  gem 'unicorn'
+  gem 'pg'
 end
 
 gem 'mechanize'
