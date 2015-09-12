@@ -41,5 +41,5 @@ div.col-md-6
       br
       hr
       h3
-        = button_to "Destroy Everything", "", :class => "btn btn-danger pull-right", :id => "destroy-button", :data => { :loading_text => "Scrapping..." }
+        = button_to "Destroy Everything", "/destroy_all", :class => "btn btn-danger pull-right", :id => "destroy-button", :data => { :disable_with => "Destroying..." }
         | Clear everything scrapped so far.

@@ -23,4 +23,11 @@ class VisitorsController < ApplicationController
       end
     end
   end
+
+  def destroy_all
+    Ad.destroy_all
+    respond_to do |format|
+      format.html { redirect_to :back, notice: 'Destroyed all contacts. I am ready for a fresh start.' }
+    end
+  end
 end
