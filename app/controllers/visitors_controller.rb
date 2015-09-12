@@ -12,7 +12,12 @@ class VisitorsController < ApplicationController
       logger.info "inside 2"
       if params[:pid]
         logger.info "inside pi"
-        @status = Process.kill "TERM", params[:pid].to_i
+        begin
+          @status = Process.kill "TERM", params[:pid].to_i
+        rescue => e
+          puts e
+          @status = "failed"
+        end
         logger.info @status
         message = "stopped"
       end
